@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NES Games</title>
+  <style>
+    body {
+      background: #000080;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      padding: 30px 40px;
+    }
+    a.back {
+      color: #fff;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 20px;
+      border: 2px solid #fff;
+      padding: 4px 10px;
+    }
+    a.back:hover { background: #fff; color: #000080; }
+    h2 {
+      font-size: 22px;
+      color: #ffff00;
+      margin-bottom: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 380px;
+    }
+    ul li {
+      border-bottom: 1px dashed #0000ff;
+      padding: 10px 0;
+    }
+    ul li a {
+      color: #00ff00;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    ul li a::before { content: "> "; color: #ff0000; }
+    ul li a:hover { color: #ffff00; }
+    #status { color: #aaa; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <a class="back" href="index.html">&larr; BACK</a>
+  <h2>NES GAMES</h2>
+  <p id="status">loading...</p>
+  <ul id="game-list"></ul>
+
+  <script>
+    fetch('https://api.github.com/repos/greeniYT/retro-gamez/contents/roms?ref=main')
+      .then(r => r.json())
+      .then(files => {
+        const ul = document.getElementById('game-list');
+        document.getElementById('status').remove();
+
+        files
+          .filter(f => f.name.endsWith('.nes'))
+          .forEach(f => {
+            const name = f.name.replace('.nes', '').replace(/[-_]/g, ' ');
+            ul.innerHTML += `<li><a href="play.html?game=${encodeURIComponent(name)}&rom=${encodeURIComponent(f.download_url)}">${name}</a></li>`;
+          });
+      })
+      .catch(() => {
+        document.getElementById('status').textContent = 'could not load games.';
+      });
+  </script>
+</body>
+</html>

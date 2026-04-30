@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Play</title>
+  <style>
+    body {
+      background: #000080;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      padding: 30px 40px;
+    }
+    a.back {
+      color: #fff;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 16px;
+      border: 2px solid #fff;
+      padding: 4px 10px;
+    }
+    a.back:hover { background: #fff; color: #000080; }
+    h2 {
+      color: #ffff00;
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    #game-container {
+      width: 640px;
+      height: 480px;
+    }
+  </style>
+</head>
+<body>
+  <a class="back" href="games.html">&larr; BACK TO LIST</a>
+  <h2 id="game-title"></h2>
+  <div id="game-container"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('game-title').textContent = params.get('game') || '';
+
+    window.EJS_player = '#game-container';
+    window.EJS_core = 'nes';
+    window.EJS_gameUrl = params.get('rom');
+    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+  </script>
+  <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+</body>
+</html>

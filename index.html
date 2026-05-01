@@ -9,7 +9,7 @@
       font-family: Arial, sans-serif;
       font-weight: bold;
       text-align: center;
-      padding-top: 80px;
+      padding-top: 60px;
     }
     h1 {
       font-size: 36px;
@@ -21,12 +21,18 @@
       color: #00ff00;
       margin-bottom: 50px;
     }
+    .consoles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
     a {
       display: inline-block;
       text-decoration: none;
     }
     a img {
-      width: 220px;
+      width: 180px;
       display: block;
       margin: 0 auto 10px;
     }
@@ -34,7 +40,8 @@
       color: #fff;
       font-family: Arial, sans-serif;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
+      display: block;
     }
     a:hover span {
       color: #ffff00;
@@ -45,9 +52,23 @@
   <h1>RETRO GAMEZ</h1>
   <p>pick a system</p>
 
-  <a href="games.html">
-    <img src="nes.png" alt="NES">
-    <span>NINTENDO NES</span>
-  </a>
+  <div class="consoles">
+    <a href="games.html?console=nes">
+      <img src="images/nes.png" alt="NES">
+      <span>NINTENDO NES</span>
+    </a>
+    <a href="games.html?console=snes">
+      <img src="images/snes.png" alt="SNES">
+      <span>SUPER NINTENDO</span>
+    </a>
+    <a href="games.html?console=n64">
+      <img src="images/n64.png" alt="N64">
+      <span>NINTENDO 64</span>
+    </a>
+    <a href="games.html?console=genesis">
+      <img src="images/genesis.png" alt="Genesis">
+      <span>SEGA GENESIS</span>
+    </a>
+  </div>
 </body>
 </html>

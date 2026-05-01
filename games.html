@@ -24,6 +24,7 @@
       font-size: 22px;
       color: #ffff00;
       margin-bottom: 20px;
+      text-transform: uppercase;
     }
     ul {
       list-style: none;
@@ -46,22 +47,27 @@
 </head>
 <body>
   <a class="back" href="index.html">&larr; BACK</a>
-  <h2>NES GAMES</h2>
+  <h2 id="console-title"></h2>
   <p id="status">loading...</p>
   <ul id="game-list"></ul>
 
   <script>
-    fetch('https://api.github.com/repos/greeniYT/retro-gamez/contents/roms?ref=main')
+    const params = new URLSearchParams(window.location.search);
+    const console_ = params.get('console') || 'nes';
+
+    document.getElementById('console-title').textContent = console_.toUpperCase() + ' GAMES';
+
+    fetch(`https://api.github.com/repos/greeniYT/retro-gamez/contents/roms/${console_}?ref=main`)
       .then(r => r.json())
       .then(files => {
         const ul = document.getElementById('game-list');
         document.getElementById('status').remove();
 
         files
-          .filter(f => f.name.endsWith('.nes'))
+          .filter(f => f.type === 'file')
           .forEach(f => {
-            const name = f.name.replace('.nes', '').replace(/[-_]/g, ' ');
-            ul.innerHTML += `<li><a href="play.html?game=${encodeURIComponent(name)}&rom=${encodeURIComponent(f.download_url)}">${name}</a></li>`;
+            const name = f.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+            ul.innerHTML += `<li><a href="play.html?game=${encodeURIComponent(name)}&rom=${encodeURIComponent(f.download_url)}&console=${console_}">${name}</a></li>`;
           });
       })
       .catch(() => {

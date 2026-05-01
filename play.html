@@ -33,16 +33,28 @@
   </style>
 </head>
 <body>
-  <a class="back" href="games.html">&larr; BACK TO LIST</a>
+  <a class="back" id="back-btn" href="#">&larr; BACK TO LIST</a>
   <h2 id="game-title"></h2>
   <div id="game-container"></div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
+    const console_ = params.get('console') || 'nes';
+
     document.getElementById('game-title').textContent = params.get('game') || '';
+    document.getElementById('back-btn').href = `games.html?console=${console_}`;
+
+    // EmulatorJS core per console
+    const cores = {
+      nes: 'nes',
+      snes: 'snes',
+      genesis: 'segaMD',
+      gba: 'gba',
+      n64: 'n64'
+    };
 
     window.EJS_player = '#game-container';
-    window.EJS_core = 'nes';
+    window.EJS_core = cores[console_] || 'nes';
     window.EJS_gameUrl = params.get('rom');
     window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
   </script>
